@@ -640,6 +640,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Add click effect for scroll indicator
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = aboutSection.offsetTop - headerHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+});
+
 // Add click effect for video review section - open Instagram link
 document.addEventListener('DOMContentLoaded', function() {
     const videoContainer = document.querySelector('.video-container');
