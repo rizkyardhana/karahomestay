@@ -1130,7 +1130,7 @@ body {
 
 .filter-btn.active,
 .filter-btn:hover {
-    color: white;
+    color: black;
     border-color: var(--secondary-color);
 }
 
