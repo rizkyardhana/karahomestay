@@ -334,9 +334,11 @@ body {
     object-fit: contain;
     display: block;
     filter: none;
-    image-rendering: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    transition: opacity 0.3s ease;
 }
 
 .nav__menu {
@@ -675,7 +677,7 @@ body {
     object-fit: cover;
     object-position: center;
     filter: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
 }
 
 .about__image img:hover {
