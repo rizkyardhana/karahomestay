@@ -541,8 +541,16 @@ _Saya tertarik booking di Kara Homestay. Mohon info ketersediaan kamar dan detai
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-    // Buka WhatsApp di tab baru
-    window.open(whatsappURL, '_blank');
+    // Deteksi perangkat mobile/HP
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        // Di HP, langsung redirect via window.location agar langsung membuka aplikasi WhatsApp
+        window.location.href = whatsappURL;
+    } else {
+        // Di Laptop/Desktop, buka di tab baru
+        window.open(whatsappURL, '_blank');
+    }
 }
 
 // Handle form submission
@@ -573,26 +581,20 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
         return;
     }
 
-    // Tampilkan loading
+    // Tampilkan loading state pada tombol
     const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Mengirim...';
+    const originalContent = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
     submitBtn.disabled = true;
 
-    // Kirim ke WhatsApp setelah delay kecil
+    // Panggil langsung secara sinkronus agar tidak diblokir oleh Popup Blocker HP
+    kirimKeWhatsApp(formData);
+
+    // Reset button state setelah 2 detik
     setTimeout(() => {
-        kirimKeWhatsApp(formData);
-
-        // Reset button setelah 2 detik
-        setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-
-            // Opsional: Reset form
-            // this.reset();
-        }, 2000);
-
-    }, 1000);
+        submitBtn.innerHTML = originalContent;
+        submitBtn.disabled = false;
+    }, 2000);
 });
 
 // Set tanggal minimum untuk check-in (hari ini)

@@ -1959,10 +1959,15 @@ body {
         align-items: center;
     }
 
-    .btn {
+    .hero__buttons .btn {
         width: 100%;
         max-width: 250px;
         justify-content: center;
+    }
+
+    .btn-full {
+        width: 100%;
+        max-width: 100%;
     }
 
     .about-stats {
